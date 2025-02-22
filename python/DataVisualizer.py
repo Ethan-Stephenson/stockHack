@@ -3,13 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
-data = yf.download("FUBO", start="2024-06-01", end="2025-02-22")
-
-with open("FUBO.csv", "w") as file:
-    data.to_csv("FUBO.csv", index=False)
-
-with open("FUBO.csv", "a") as file:
-    file.write("From 2024-06-03 to 2025-01-22")
+data = yf.download("FUBO", start="2025-01-01", end="2025-02-22")
 
 #print(data.head())
 #print(data.describe())
@@ -23,11 +17,52 @@ with open("FUBO.csv", "a") as file:
 #plt.plot(data["Close"])
 #plt.show()
 
-data2 = data["Close"]
+data2 = pd.DataFrame(columns=['close'])
+data2['close'] = data["Close"]
 data2 = pd.DataFrame(data2)
-shift = 15
-
-data2.to_csv("TEST.csv", index=False)
+shift = 3
 
 data2['Prediction'] = data2.shift(-shift)
-print(data2.tail())
+#print(data2.tail())
+
+#CONTENT WARNING: IDK WHAT ANY OF THIS DOES vvvv
+X = np.array(data2.drop(columns='Prediction'))[:-shift]
+#print(X)
+
+y = np.array(data2['Prediction'])[:-shift]
+#print(y)
+
+from sklearn.model_selection import train_test_split
+x_train, x_test, y_train, y_test = train_test_split(X, y, test_size = 0.2)
+
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.linear_model import LinearRegression
+
+# Implementing Linear and Decision Tree Regression Algorithms.
+tree = DecisionTreeRegressor().fit(x_train, y_train)
+lr = LinearRegression().fit(x_train, y_train)
+
+x_future = data2.drop(columns='Prediction')[:-shift]
+x_future = x_future.tail(shift)
+x_future = np.array(x_future)
+#print(x_future)
+
+tree_prediction = tree.predict(x_future)
+print(tree_prediction)
+
+lr_prediction = lr.predict(x_future)
+print(lr_prediction)
+
+predictions = tree_prediction 
+valid = data2[X.shape[0]:]
+valid['Predictions'] = predictions
+
+#Something happens
+plt.figure(figsize=(16,8))
+plt.title("Model")
+plt.xlabel('Days')
+plt.ylabel('Close Price USD ($)')
+plt.plot(data2['close'])
+plt.plot(valid[['close', 'Predictions']])
+plt.legend(["Original", "Valid", 'Predicted'])
+plt.show()

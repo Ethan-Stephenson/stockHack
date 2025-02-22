@@ -6,10 +6,10 @@ data.to_csv("CELH.csv", index=False)
 with open("CELH.csv", "a") as file:
     file.write("From 2024-06-03 to 2025-01-22") #edit last line of file 
 
-data = yf.download("CVNA", start="2024-06-01", end="2025-02-22")
+data = yf.download("CVNA", start="2023-06-01", end="2025-02-22")
 data.to_csv("CVNA.csv", index=False)
 with open("CVNA.csv", "a") as file:
-    file.write("From 2024-06-03 to 2025-01-22")
+    file.write("From 2023-06-01 to 2025-01-22")
 
 data = yf.download("UPST", start="2024-06-01", end="2025-02-22")
 data.to_csv("UPST.csv", index=False)
