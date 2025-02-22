@@ -26,7 +26,7 @@ with open("CVNA.csv", "a") as file:
 data = yf.download("UPST", start="2024-06-01", end="2025-02-22")
 
 with open("UPST.csv", "w") as file:
-    data.to_csv("CVNA.csv", index=False)
+    data.to_csv("UPST.csv", index=False)
 
 with open("UPST.csv", "a") as file:
     file.write("From 2024-06-03 to 2025-01-22")
@@ -34,7 +34,7 @@ with open("UPST.csv", "a") as file:
 data = yf.download("ALT", start="2024-06-01", end="2025-02-22")
 
 with open("ALT.csv", "w") as file:
-    data.to_csv("CVNA.csv", index=False)
+    data.to_csv("ALT.csv", index=False)
 
 with open("ALT.csv", "a") as file:
     file.write("From 2024-06-03 to 2025-01-22")
@@ -42,7 +42,7 @@ with open("ALT.csv", "a") as file:
 data = yf.download("FUBO", start="2024-06-01", end="2025-02-22")
 
 with open("FUBO.csv", "w") as file:
-    data.to_csv("CVNA.csv", index=False)
+    data.to_csv("FUBO.csv", index=False)
 
 with open("FUBO.csv", "a") as file:
     file.write("From 2024-06-03 to 2025-01-22")
