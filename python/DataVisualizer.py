@@ -3,27 +3,17 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
+#### Edit range of data
 data = yf.download("FUBO", start="2025-01-01", end="2025-02-22")
-
-#print(data.head())
-#print(data.describe())
-#print(data.shape)
-
-# Visualizing the opening prices of the data.
-#plt.figure(figsize=(16,8))
-#plt.title('Fubo')
-#plt.xlabel('Days')
-#plt.ylabel('Opening Price USD ($)')
-#plt.plot(data["Close"])
-#plt.show()
 
 data2 = pd.DataFrame(columns=['close'])
 data2['close'] = data["Close"]
 data2 = pd.DataFrame(data2)
+
+#### Number of days to predict
 shift = 3
 
 data2['Prediction'] = data2.shift(-shift)
-#print(data2.tail())
 
 #CONTENT WARNING: IDK WHAT ANY OF THIS DOES vvvv
 X = np.array(data2.drop(columns='Prediction'))[:-shift]
@@ -45,7 +35,6 @@ lr = LinearRegression().fit(x_train, y_train)
 x_future = data2.drop(columns='Prediction')[:-shift]
 x_future = x_future.tail(shift)
 x_future = np.array(x_future)
-#print(x_future)
 
 tree_prediction = tree.predict(x_future)
 print(tree_prediction)
