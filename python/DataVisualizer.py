@@ -4,7 +4,15 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 #### Edit range of data
-data = yf.download("CELH", start="2025-02-01", end="2025-02-24")
+#data = yf.download("CELH", start="2025-01-01", end="2025-02-24")
+#data = yf.download("CVNA", start="2025-02-01", end="2025-02-24")
+#data = yf.download("UPST", start="2025-01-01", end="2025-02-24")
+#data = yf.download("ALT", start="2025-01-01", end="2025-02-24")
+data = yf.download("FUBO", start="2025-01-01", end="2025-02-24")
+
+
+
+
 
 data2 = pd.DataFrame(columns=['close', 'yestClose', 'volume'])
 data2['close'] = data["Close"]
